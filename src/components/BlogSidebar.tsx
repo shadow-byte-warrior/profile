@@ -1,4 +1,4 @@
-import { Home, Sparkles, MessageSquare, PlusSquare, User, Menu, LogOut } from "lucide-react";
+import { Home, Sparkles, MessageSquare, PlusSquare, User, Menu, LogOut, Search } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -7,9 +7,9 @@ const BlogSidebar = () => {
 
   const menuItems = [
     { icon: Home, label: "Home", path: "/blog" },
-    { icon: Sparkles, label: "Archive", path: "/archive" },
-    { icon: MessageSquare, label: "Community", path: "/community" },
+    { icon: Search, label: "Search", path: "/archive" },
     { icon: PlusSquare, label: "Create", path: "/admin/create" },
+    { icon: Sparkles, label: "Reels", path: "/blog" },
     { icon: User, label: "Profile", path: "/admin" },
   ];
 
