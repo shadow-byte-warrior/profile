@@ -9,7 +9,7 @@ const experiences = [
   {
     company: "Carpedium Technology",
     role: "AI Software Engineer Intern",
-    period: "Dec 2025 – Jan 2026",
+    period: "Dec 2025 – March 2026",
     location: "Coimbatore",
     highlights: [
       "Designed and developed a full-stack healthcare web application using Python and Streamlit",

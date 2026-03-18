@@ -166,7 +166,7 @@ const Resume = () => {
                       <h4 className="font-bold">Carpedium Technology</h4>
                       <p className="text-sm text-muted-foreground">AI Software Engineer Intern</p>
                     </div>
-                    <span className="text-xs text-muted-foreground">Dec 2025 – Jan 2026</span>
+                    <span className="text-xs text-muted-foreground">Dec 2025 – March 2026</span>
                   </div>
                   <ul className="text-sm text-muted-foreground mt-2 space-y-1">
                     <li>• Designed full-stack healthcare web application with Python and Streamlit</li>
