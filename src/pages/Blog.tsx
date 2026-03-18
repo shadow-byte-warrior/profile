@@ -21,14 +21,28 @@ const Blog = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const { data } = await supabase
-        .from("blogs")
-        .select("*")
-        .eq("is_published", true)
-        .order("created_at", { ascending: false });
-      
-      if (data) setBlogPosts(data);
-      setLoading(false);
+      try {
+        const { data, error } = await supabase
+          .from("blogs")
+          .select("*")
+          .eq("is_published", true)
+          .order("created_at", { ascending: false });
+        
+        if (error) {
+          console.error("Supabase error fetching posts:", error.message);
+          toast.error("Failed to load innovations: " + error.message);
+          return;
+        }
+
+        if (data) {
+          console.log(`Successfully fetched ${data.length} blog posts`);
+          setBlogPosts(data);
+        }
+      } catch (err: any) {
+        console.error("Unexpected error fetching posts:", err);
+      } finally {
+        setLoading(false);
+      }
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -119,7 +133,9 @@ const Blog = () => {
                             <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent to-purple-600 flex items-center justify-center text-xs font-bold text-white shadow-xl">AP</div>
                             <div className="flex flex-col">
                               <span className="font-bold text-lg">arun.pandian</span>
-                              <span className="text-xs text-muted-foreground">{new Date(post.created_at).toLocaleDateString()}</span>
+                              <span className="text-xs text-muted-foreground">
+                                {post.created_at ? new Date(post.created_at).toLocaleDateString() : 'Date unavailable'}
+                              </span>
                             </div>
                           </div>
                           
