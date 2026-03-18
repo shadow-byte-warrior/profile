@@ -12,7 +12,6 @@ import BlogProgressBoard from "@/components/BlogProgressBoard";
 import { Plus, Compass, Sparkles, PlusSquare } from "lucide-react";
 import BlogSidebar from "@/components/BlogSidebar";
 import { Button } from "@/components/ui/button";
-import JigsawPuzzle from "@/components/JigsawPuzzle";
 import { toast } from "sonner";
 
 const Blog = () => {
@@ -82,17 +81,32 @@ const Blog = () => {
                   >
                     <div className="container max-w-5xl mx-auto h-full flex flex-col md:flex-row items-center gap-8 md:gap-16">
                       
-                      {/* Visual Content (Jigsaw) */}
-                      <div className="flex-1 w-full flex items-center justify-center order-2 md:order-1">
-                        <div className="w-full max-w-lg animate-in zoom-in duration-1000">
+                      <div className="flex-1 w-full flex items-center justify-center order-2 md:order-1 relative group/image">
+                        <div className="w-full max-w-lg aspect-[4/5] md:aspect-square rounded-[2.5rem] md:rounded-[3rem] overflow-hidden bg-card/40 border border-border/50 shadow-2xl relative">
                           {post.cover_url ? (
-                            <JigsawPuzzle imageUrl={post.cover_url} />
+                            <motion.img 
+                              src={post.cover_url} 
+                              alt={post.title}
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover/image:scale-110"
+                              initial={{ scale: 1.2, opacity: 0 }}
+                              whileInView={{ scale: 1, opacity: 1 }}
+                              transition={{ duration: 1.2, ease: "easeOut" }}
+                            />
                           ) : (
-                            <div className="aspect-square rounded-[3rem] bg-card/40 border border-border/50 flex items-center justify-center shadow-2xl">
+                            <div className="w-full h-full flex items-center justify-center">
                               <Compass size={64} className="text-muted-foreground/20 animate-spin-slow" />
                             </div>
                           )}
+                          {/* Inner Shadow Overlay for better depth */}
+                          <div className="absolute inset-0 shadow-[inner_0_0_100px_rgba(0,0,0,0.4)] pointer-events-none" />
                         </div>
+                        
+                        {/* Floating decorative elements for "Reel" feel */}
+                        <motion.div 
+                          className="absolute -right-4 -bottom-4 w-24 h-24 bg-accent/20 blur-3xl rounded-full -z-10"
+                          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+                          transition={{ duration: 4, repeat: Infinity }}
+                        />
                       </div>
 
                       {/* Text Content */}
@@ -120,20 +134,23 @@ const Blog = () => {
                             <ReactMarkdown>{post.content}</ReactMarkdown>
                           </div>
 
-                          <div className="flex items-center gap-6">
+                          <div className="flex items-center gap-4 sm:gap-6 mt-auto">
                             <Link to={`/blog/${post.slug}`}>
-                              <Button className="bg-accent text-accent-foreground rounded-2xl px-6 md:px-10 py-5 md:py-7 text-base md:text-lg shadow-xl shadow-accent/20 hover:scale-105 transition-all">
+                              <Button className="bg-accent text-accent-foreground rounded-2xl px-8 md:px-10 py-6 md:py-7 text-base md:text-lg shadow-xl shadow-accent/20 hover:scale-105 active:scale-95 transition-all font-bold">
                                 Open Post
                               </Button>
                             </Link>
-                            <button className="flex flex-col items-center gap-1 text-muted-foreground hover:text-accent transition-colors group">
-                              <Plus size={24} className="rotate-45 group-hover:scale-110" />
-                              <span className="text-[10px] font-bold uppercase">82</span>
-                            </button>
-                            <button className="flex flex-col items-center gap-1 text-muted-foreground hover:text-accent transition-colors group">
-                              <Plus size={24} className="group-hover:scale-110" />
-                              <span className="text-[10px] font-bold uppercase">Chat</span>
-                            </button>
+                            <div className="flex items-center gap-4 bg-white/5 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/10">
+                              <button className="flex flex-col items-center gap-0.5 text-muted-foreground hover:text-accent transition-colors group">
+                                <Plus size={20} className="rotate-45 group-hover:scale-110" />
+                                <span className="text-[9px] font-bold uppercase">82</span>
+                              </button>
+                              <div className="w-px h-6 bg-white/10" />
+                              <button className="flex flex-col items-center gap-0.5 text-muted-foreground hover:text-accent transition-colors group">
+                                <Plus size={20} className="group-hover:scale-110" />
+                                <span className="text-[9px] font-bold uppercase">Chat</span>
+                              </button>
+                            </div>
                           </div>
                         </motion.div>
                       </div>

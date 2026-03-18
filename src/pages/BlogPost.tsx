@@ -17,14 +17,13 @@ interface BlogPost {
   cover_url?: string;
 }
 
-import JigsawPuzzle from "@/components/JigsawPuzzle";
 import BlogSidebar from "@/components/BlogSidebar";
 
 const BlogPost = () => {
   const { slug } = useParams();
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
-  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [isUnlocked, setIsUnlocked] = useState(true);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -81,10 +80,14 @@ const BlogPost = () => {
             </div>
 
             {post.cover_url && (
-              <div className="mb-16">
-                <JigsawPuzzle 
-                  imageUrl={post.cover_url} 
-                  onSolve={() => setIsUnlocked(true)} 
+              <div className="mb-16 rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden border border-border/50 shadow-2xl">
+                <motion.img 
+                  src={post.cover_url} 
+                  alt={post.title}
+                  initial={{ scale: 1.1, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.8 }}
+                  className="w-full h-auto object-cover aspect-video md:aspect-[21/9]"
                 />
               </div>
             )}
@@ -104,18 +107,6 @@ const BlogPost = () => {
                 <ReactMarkdown>{post.content}</ReactMarkdown>
               </div>
 
-              {!isUnlocked && post.cover_url && (
-                <div className="text-center py-12 bg-card/10 rounded-3xl border border-dashed border-border/50 mt-12">
-                  <p className="text-muted-foreground italic mb-4">Solve the puzzle above to unlock the full thread.</p>
-                  <Button 
-                    variant="ghost" 
-                    onClick={() => setIsUnlocked(true)}
-                    className="text-xs uppercase tracking-widest text-accent font-bold hover:bg-accent/10"
-                  >
-                    Quick Unlock →
-                  </Button>
-                </div>
-              )}
             </motion.div>
 
             {/* Social Interaction Bar (Threads Style) */}
