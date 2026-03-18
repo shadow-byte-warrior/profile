@@ -7,7 +7,7 @@ const BlogSidebar = () => {
 
   const menuItems = [
     { icon: Home, label: "Home", path: "/blog" },
-    { icon: Sparkles, label: "Innovation", path: "/innovation" },
+    { icon: Sparkles, label: "Archive", path: "/archive" },
     { icon: MessageSquare, label: "Community", path: "/community" },
     { icon: PlusSquare, label: "Create", path: "/admin/create" },
     { icon: User, label: "Profile", path: "/admin" },

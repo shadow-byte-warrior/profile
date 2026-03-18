@@ -4,7 +4,7 @@ import BlogSidebar from "@/components/BlogSidebar";
 import { Sparkles, Zap, Box, Cpu, Globe, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const Innovation = () => {
+const Archive = () => {
   const innovations = [
     { title: "Agentic Swarms", status: "Active", icon: Cpu, color: "text-blue-500" },
     { title: "Glassmorphic OS", status: "Beta", icon: Box, color: "text-purple-500" },
@@ -17,9 +17,9 @@ const Innovation = () => {
       <div className="min-h-screen bg-background relative flex flex-col md:flex-row h-screen overflow-hidden">
         <BlogSidebar />
         
-        <div className="flex-1 md:ml-20 xl:ml-64 p-8 md:p-12 overflow-y-auto">
-          <div className="max-w-6xl mx-auto py-12">
-            <header className="mb-20 text-center flex flex-col items-center">
+        <div className="flex-1 md:ml-20 xl:ml-64 p-4 sm:p-8 md:p-12 overflow-y-auto">
+          <div className="max-w-6xl mx-auto py-8 md:py-12">
+            <header className="mb-12 md:mb-20 text-center flex flex-col items-center">
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -27,11 +27,11 @@ const Innovation = () => {
               >
                 <Sparkles size={40} className="text-accent animate-pulse" />
               </motion.div>
-              <h1 className="text-5xl md:text-7xl font-display font-bold italic tracking-tighter bg-gradient-to-b from-foreground to-foreground/30 bg-clip-text text-transparent mb-4">
-                INNOVATIONS
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-display font-bold italic tracking-tighter bg-gradient-to-b from-foreground to-foreground/40 bg-clip-text text-transparent mb-4 uppercase">
+                Archive
               </h1>
-              <p className="text-muted-foreground text-lg max-w-2xl">
-                Experimental labs, future-tech prototypes, and architectural breakthroughs. Welcome to the edge of engineering.
+              <p className="text-muted-foreground text-sm md:text-lg max-w-2xl px-4">
+                A collection of past experiments, research notes, and architectural deep-dives. The evolution of my engineering journey.
               </p>
             </header>
 
@@ -40,17 +40,17 @@ const Innovation = () => {
               <div className="relative max-w-2xl mx-auto group">
                 <div className="absolute inset-0 bg-accent/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 <div className="relative bg-card/40 backdrop-blur-3xl border border-white/10 rounded-[2rem] p-6 shadow-2xl flex items-center gap-6">
-                  <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-accent shadow-inner">
-                    <Search size={24} />
+                  <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl bg-white/5 flex items-center justify-center text-accent shadow-inner">
+                    <Search size={20} className="md:w-6 md:h-6" />
                   </div>
-                  <input 
+                   <input 
                     type="text" 
-                    placeholder="Search Innovation Pipeline..." 
-                    className="bg-transparent border-none focus:ring-0 text-2xl font-display font-bold w-full placeholder:text-muted-foreground/30"
+                    placeholder="Search Archive..." 
+                    className="bg-transparent border-none focus:ring-0 text-lg md:text-2xl font-display font-bold w-full placeholder:text-muted-foreground/30"
                   />
                   <div className="hidden md:flex flex-col items-end text-right min-w-max">
                     <span className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground">Command</span>
-                    <span className="text-sm font-bold text-accent">Goggle Hub</span>
+                    <span className="text-sm font-bold text-accent">Archive Hub</span>
                   </div>
                 </div>
               </div>
@@ -81,14 +81,14 @@ const Innovation = () => {
               ))}
             </div>
 
-            {/* Innovation Roadmap */}
+            {/* Archive Roadmap */}
             <div className="mt-32 p-12 rounded-[3.5rem] bg-gradient-to-br from-card/30 to-background border border-white/5 shadow-2xl relative overflow-hidden">
                <div className="absolute top-0 right-0 p-12 opacity-10">
                 <Globe size={200} className="text-accent" />
               </div>
               <div className="relative z-10 max-w-3xl">
-                <h2 className="text-4xl font-display font-bold italic mb-6">The Multi-Model Roadmap</h2>
-                <p className="text-lg text-muted-foreground mb-12">
+                <h2 className="text-4xl font-display font-bold italic mb-6">The Multi-Model Archive</h2>
+                <p className="text-base md:text-lg text-muted-foreground mb-8 md:mb-12">
                   Building the next generation of digital infrastructure. From synchronized cross-platform states to decentralized AI agents.
                 </p>
                 <div className="flex flex-wrap gap-4">
@@ -105,4 +105,4 @@ const Innovation = () => {
   );
 };
 
-export default Innovation;
+export default Archive;

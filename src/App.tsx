@@ -15,7 +15,7 @@ import Experience from "@/pages/Experience";
 import Resume from "@/pages/Resume";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
-import Innovation from "@/pages/Innovation";
+import Archive from "@/pages/Archive";
 import Community from "@/pages/Community";
 import Admin from "@/pages/Admin";
 import BlogEditor from "@/pages/BlogEditor";
@@ -42,7 +42,7 @@ const App = () => (
             <Route path="/resume" element={<Resume />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/innovation" element={<Innovation />} />
+            <Route path="/archive" element={<Archive />} />
             <Route path="/community" element={<Community />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/create" element={<BlogEditor />} />

@@ -8,15 +8,15 @@ const Community = () => {
   const [activeChannel, setActiveChannel] = useState("general");
 
   const channels = [
-    { id: "general", name: "General Innovation", description: "Talk about daily labs and ideas." },
+    { id: "general", name: "General Channel", description: "Talk about daily logs and ideas." },
     { id: "ai-labs", name: "AI Research", description: "Share your agentic and RAG breakthroughs." },
     { id: "design-systems", name: "Future of UI", description: "Discuss glassmorphism and motion." },
-    { id: "announcements", name: "Global Logs", description: "Official updates for the hub." },
+    { id: "announcements", name: "Global Logs", description: "Official updates for the log." },
   ];
 
   const messages = [
     { id: 1, user: "arun.pandian", content: "Just landed the new Reels-style scrolling! What do you guys think?", time: "2:34 PM" },
-    { id: 2, user: "system", content: "New innovation uploaded: Agentic SaaS v2.1", time: "3:01 PM" },
+    { id: 2, user: "system", content: "New log uploaded: Agentic SaaS v2.1", time: "3:01 PM" },
     { id: 3, user: "researcher_alpha", content: "The jigsaw reveal is a great attraction method. Increased my dwell time by 40%.", time: "3:15 PM" },
   ];
 
@@ -30,7 +30,7 @@ const Community = () => {
           {/* Discord-style Channels Sidebar */}
           <div className="w-64 bg-[#1E1F22] border-r border-white/5 hidden lg:flex flex-col p-4 shadow-xl">
             <div className="flex items-center justify-between mb-8 px-2">
-              <h2 className="font-display font-bold text-lg tracking-tighter uppercase italic">Hub Community</h2>
+              <h2 className="font-display font-bold text-lg tracking-tighter uppercase italic">Community</h2>
               <Settings size={16} className="text-muted-foreground hover:text-foreground cursor-pointer" />
             </div>
 
