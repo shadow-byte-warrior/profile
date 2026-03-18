@@ -15,6 +15,7 @@ import { toast } from "sonner";
 const Blog = () => {
   const [blogPosts, setBlogPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [expandedPostId, setExpandedPostId] = useState<string | null>(null);
 
   const handleShare = async (slug: string) => {
     const url = `${window.location.origin}/blog/${slug}`;
@@ -157,10 +158,19 @@ const Blog = () => {
                           
                           <h2 className="text-xl md:text-3xl font-bold mb-3 drop-shadow-lg">{post.title}</h2>
                           
-                          {/* Scrollable Text Area */}
-                          <div className="text-sm md:text-base text-zinc-100 mb-6 max-w-lg drop-shadow-md font-medium leading-relaxed max-h-[30vh] overflow-y-auto pointer-events-auto overscroll-contain pr-4 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+                          {/* Read More / Snippet */}
+                          <div 
+                            onClick={() => setExpandedPostId(post.id)}
+                            className="text-sm md:text-base text-zinc-100 mb-2 max-w-lg drop-shadow-md font-medium leading-relaxed line-clamp-2 cursor-pointer pointer-events-auto"
+                          >
                             <ReactMarkdown>{post.content}</ReactMarkdown>
                           </div>
+                          <button 
+                            onClick={() => setExpandedPostId(post.id)}
+                            className="text-white/60 text-xs font-bold mb-6 hover:text-white pointer-events-auto"
+                          >
+                            ... more
+                          </button>
                           
                           <div className="flex items-center gap-3 opacity-80 text-[10px] md:text-xs font-bold uppercase tracking-widest bg-black/20 backdrop-blur-sm w-fit px-3 py-1.5 rounded-full border border-white/5">
                             <Calendar size={12} className="text-accent" />
@@ -177,14 +187,14 @@ const Blog = () => {
                             <div className="p-2.5 rounded-full bg-black/10 backdrop-blur-md hover:bg-black/30 group-active:scale-150 transition-all">
                               <Heart className="w-7 h-7 sm:w-9 sm:h-9 hover:text-red-500 transition-colors drop-shadow-lg" />
                             </div>
-                            <span className="text-xs font-bold drop-shadow-lg">4.2k</span>
+                            <span className="text-xs font-bold drop-shadow-lg">0</span>
                           </button>
                           
                           <Link to={`/blog/${post.slug}`} className="flex flex-col items-center gap-1.5 group">
                             <div className="p-2.5 rounded-full bg-black/10 backdrop-blur-md hover:bg-black/30 transition-all pointer-events-auto">
                               <MessageCircle className="w-7 h-7 sm:w-9 sm:h-9 drop-shadow-lg" />
                             </div>
-                            <span className="text-xs font-bold drop-shadow-lg">128</span>
+                            <span className="text-xs font-bold drop-shadow-lg">0</span>
                           </Link>
                           
                           <button onClick={() => handleShare(post.slug)} className="flex flex-col items-center gap-1.5 group">
@@ -208,8 +218,26 @@ const Blog = () => {
                       </div>
                     </div>
 
+                    {/* Full Text Overlay Modal */}
+                    {expandedPostId === post.id && (
+                      <div className="absolute inset-0 z-50 bg-black/95 p-6 md:p-12 overflow-y-auto flex flex-col pointer-events-auto animate-in fade-in duration-300">
+                        <div className="flex justify-between items-start mb-8 mt-16 md:mt-0">
+                          <h2 className="text-2xl md:text-3xl font-bold max-w-[80%]">{post.title}</h2>
+                          <button 
+                            onClick={() => setExpandedPostId(null)}
+                            className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors sticky top-4"
+                          >
+                            <Plus className="rotate-45 w-6 h-6" />
+                          </button>
+                        </div>
+                        <div className="prose prose-invert max-w-none text-base md:text-lg leading-relaxed pb-20">
+                          <ReactMarkdown>{post.content}</ReactMarkdown>
+                        </div>
+                      </div>
+                    )}
+
                     {/* Desktop Hover Open Link */}
-                    <div className="absolute top-8 right-12 hidden md:block">
+                    <div className="absolute top-8 right-12 hidden md:block z-40">
                          <Link to={`/blog/${post.slug}`}>
                             <button className="flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-full font-bold hover:bg-white hover:text-black transition-all group pointer-events-auto">
                                 <span>Expand Post</span>
