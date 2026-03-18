@@ -16,6 +16,23 @@ const Blog = () => {
   const [blogPosts, setBlogPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const handleShare = async (slug: string) => {
+    const url = `${window.location.origin}/blog/${slug}`;
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "Check out this post",
+          url: url
+        });
+      } catch (err) {
+        console.error("Error sharing:", err);
+      }
+    } else {
+      navigator.clipboard.writeText(url);
+      toast.success("Link copied to clipboard!");
+    }
+  };
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -140,7 +157,8 @@ const Blog = () => {
                           
                           <h2 className="text-xl md:text-3xl font-bold mb-3 drop-shadow-lg">{post.title}</h2>
                           
-                          <div className="text-sm md:text-base text-zinc-100 line-clamp-2 md:line-clamp-3 mb-6 max-w-lg drop-shadow-md font-medium leading-relaxed">
+                          {/* Scrollable Text Area */}
+                          <div className="text-sm md:text-base text-zinc-100 mb-6 max-w-lg drop-shadow-md font-medium leading-relaxed max-h-[30vh] overflow-y-auto pointer-events-auto overscroll-contain pr-4 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
                             <ReactMarkdown>{post.content}</ReactMarkdown>
                           </div>
                           
@@ -155,27 +173,28 @@ const Blog = () => {
 
                         {/* Right Side Action Bar */}
                         <div className="flex flex-col items-center gap-7 md:gap-9 pb-4">
-                          <button className="flex flex-col items-center gap-1.5 group">
+                          <button className="flex flex-col items-center gap-1.5 group pointer-events-auto">
                             <div className="p-2.5 rounded-full bg-black/10 backdrop-blur-md hover:bg-black/30 group-active:scale-150 transition-all">
                               <Heart className="w-7 h-7 sm:w-9 sm:h-9 hover:text-red-500 transition-colors drop-shadow-lg" />
                             </div>
                             <span className="text-xs font-bold drop-shadow-lg">4.2k</span>
                           </button>
                           
-                          <button className="flex flex-col items-center gap-1.5 group">
-                            <div className="p-2.5 rounded-full bg-black/10 backdrop-blur-md hover:bg-black/30 transition-all">
+                          <Link to={`/blog/${post.slug}`} className="flex flex-col items-center gap-1.5 group">
+                            <div className="p-2.5 rounded-full bg-black/10 backdrop-blur-md hover:bg-black/30 transition-all pointer-events-auto">
                               <MessageCircle className="w-7 h-7 sm:w-9 sm:h-9 drop-shadow-lg" />
                             </div>
                             <span className="text-xs font-bold drop-shadow-lg">128</span>
-                          </button>
+                          </Link>
                           
-                          <button className="flex flex-col items-center group">
-                            <div className="p-2.5 rounded-full bg-black/10 backdrop-blur-md hover:bg-black/30 transition-all">
+                          <button onClick={() => handleShare(post.slug)} className="flex flex-col items-center gap-1.5 group">
+                            <div className="p-2.5 rounded-full bg-black/10 backdrop-blur-md hover:bg-black/30 transition-all pointer-events-auto">
                               <Send className="w-7 h-7 sm:w-9 sm:h-9 drop-shadow-lg hover:translate-x-1 hover:-translate-y-1 transition-transform" />
                             </div>
+                            <span className="text-xs font-bold drop-shadow-lg">Share</span>
                           </button>
                           
-                          <button className="flex flex-col items-center group">
+                          <button className="flex flex-col items-center group pointer-events-auto">
                             <div className="p-2.5 rounded-full bg-black/10 backdrop-blur-md hover:bg-black/30 transition-all">
                               <MoreHorizontal className="w-7 h-7 sm:w-9 sm:h-9 drop-shadow-lg" />
                             </div>
